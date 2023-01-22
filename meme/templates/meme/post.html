@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Najlepszy mem
+{% endblock %}
+
+{% block content %}
+    {% if request.user == post_req.owner %}
+        <a href="{% url 'post_delete' post_req.id %}">Usuń post</a>
+    {% endif %}
+
+    <p>{{post_req.owner}} | {{post_req.added}}</p>
+    <p>{{post_req.title}}</p>
+    <p>{{post_req.body}}</p>
+    {% load static %}<img src="{% static 'posts/' %}{{post_req.owner.id}}/{{post_req.id}}.png">
+
+    <div style="display: flex; flex-direction: row;">
+        <form method="Post" action="{% url 'like' post_req.id %}">
+            {% csrf_token %}
+            <input type="submit" value="Like">
+        </form>
+        {{post_req.interactions}}
+        <form method="POST" action="{% url 'dislike' post_req.id %}">
+            {% csrf_token %}
+            <input type="submit" value="Dislike">
+        </form>
+    </div>
+    <hr>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <textarea name="body" rows="4" cols="100"></textarea>
+        <input type="submit" name="coment" value="Dodaj">
+    </form>
+    <hr>
+    {% for coment in coments %}
+    <div>
+        {% if request.user == coment.owner %}
+        <a href="{% url 'coment_delete' coment.id %}">Usuń komentarz</a>
+        {% endif %}
+        <a>{{coment.owner}} | {{coment.added}}</a>
+        <p>{{coment.body}}</p>
+        <hr>
+    </div>
+    {% endfor %}
+
+{% endblock %}

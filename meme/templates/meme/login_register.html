@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Zarejestruj
+{% endblock %}
+
+{% block content %}
+<form method="POST" action="">
+    {% csrf_token %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        {{field.label_tag}}{{field}}
+        <br>
+    {% endfor %}
+    <input type="submit" value="{{status}}">
+</form>
+{% if status == 'Zaloguj' %}
+    <p>Nie masz jeszcze konta?</p>
+    <a href="{% url 'register' %}">zarejestruj</a>
+{% else %}
+    <p>Chcesz założyć konto?</p>
+    <a href="{% url 'login' %}">zaloguj</a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Intearkscje {{request.user}}
+{% endblock %}
+
+{% block content %}
+{% for interaction in interactions %}
+<a href="{% url 'post' interaction.post.id %}">{{interaction.added}}</a>
+<hr>
+{% endfor %}
+{% endblock %}
