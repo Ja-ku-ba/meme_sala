@@ -1,0 +1,157 @@
+body { 
+    background-color: #353a40;
+    color: white;
+}
+
+textarea {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    width: 100%;
+}
+
+#nav-bar {
+    background-color: #101012;
+}
+
+#feed {
+    background-color: #16161D;
+}
+
+
+/* main page */
+.post-feed {
+    background-color: #16161D;
+}
+
+a.feed-link:hover, a.feed-link:visited, a.feed-link:active, a.feed-link:link {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+/*  */
+
+/* post page */
+.image {
+    width: 95%;
+    height: auto;
+    margin: auto;
+    display: block;
+}
+
+[class*="up-vote-empty-"] {
+    content: "";
+    display: block;
+    width: 1em;
+    height: 1em;
+    background-size: contain;
+    background-repeat: repeat;
+    font-size: 40px;
+}
+.up-vote-empty-security {
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' standalone='no'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 20010904//EN' 'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'%3E%3Csvg version='1.0' xmlns='http://www.w3.org/2000/svg' width='64.000000pt' height='64.000000pt' viewBox='0 0 64.000000 64.000000' preserveAspectRatio='xMidYMid meet'%3E%3Cg transform='translate(0.000000,64.000000) scale(0.100000,-0.100000)'%0Afill='%23000000' stroke='none'%3E%3Cpath d='M242 467 c-34 -34 -62 -66 -62 -70 0 -4 16 -7 35 -7 l34 0 3 -82 3%0A-83 65 0 65 0 3 83 3 82 34 0 c19 0 35 4 35 8 0 14 -125 132 -141 132 -8 0%0A-43 -28 -77 -63z m128 -12 c44 -45 44 -45 17 -45 l-27 0 0 -80 0 -80 -40 0%0A-40 0 0 80 0 80 -27 0 c-27 0 -27 0 17 45 24 25 47 45 50 45 3 0 26 -20 50%0A-45z'/%3E%3Cpath d='M260 195 c0 -12 13 -15 60 -15 47 0 60 3 60 15 0 12 -13 15 -60 15%0A-47 0 -60 -3 -60 -15z'/%3E%3Cpath d='M260 155 c0 -12 13 -15 60 -15 47 0 60 3 60 15 0 12 -13 15 -60 15%0A-47 0 -60 -3 -60 -15z'/%3E%3Cpath d='M263 118 c2 -8 23 -13 57 -13 34 0 55 5 58 13 3 9 -13 12 -58 12 -45%0A0 -61 -3 -57 -12z'/%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+[class*="up-vote-fill-"] {
+    content: "";
+    display: block;
+    width: 1em;
+    height: 1em;
+    background-size: contain;
+    background-repeat: repeat;
+    font-size: 40px;
+}
+.up-vote-fill-security {
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' standalone='no'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 20010904//EN' 'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'%3E%3Csvg version='1.0' xmlns='http://www.w3.org/2000/svg' width='64.000000pt' height='64.000000pt' viewBox='0 0 64.000000 64.000000' preserveAspectRatio='xMidYMid meet'%3E%3Cg transform='translate(0.000000,64.000000) scale(0.100000,-0.100000)'%0Afill='%23000000' stroke='none'%3E%3Cpath d='M252 467 c-34 -34 -62 -66 -62 -70 0 -4 14 -7 30 -7 l30 0 0 -69 c0%0A-99 2 -101 71 -101 l59 0 0 85 0 85 35 0 c19 0 35 4 35 8 0 8 -122 132 -131%0A132 -2 0 -33 -28 -67 -63z'/%3E%3Cpath d='M260 190 c0 -6 27 -10 60 -10 33 0 60 4 60 10 0 6 -27 10 -60 10 -33%0A0 -60 -4 -60 -10z'/%3E%3Cpath d='M260 150 c0 -6 27 -10 60 -10 33 0 60 4 60 10 0 6 -27 10 -60 10 -33%0A0 -60 -4 -60 -10z'/%3E%3Cpath d='M265 110 c3 -5 28 -10 55 -10 27 0 52 5 55 10 4 6 -17 10 -55 10 -38%0A0 -59 -4 -55 -10z'/%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+[class*="down-vote-empty-"] {
+    content: "";
+    display: block;
+    width: 1em;
+    height: 1em;
+    background-size: contain;
+    background-repeat: repeat;
+    font-size: 40px;
+}
+.down-vote-empty-security {
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' standalone='no'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 20010904//EN' 'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'%3E%3Csvg version='1.0' xmlns='http://www.w3.org/2000/svg' width='64.000000pt' height='64.000000pt' viewBox='0 0 64.000000 64.000000' preserveAspectRatio='xMidYMid meet'%3E%3Cg transform='translate(0.000000,64.000000) scale(0.100000,-0.100000)'%0Afill='%23000000' stroke='none'%3E%3Cpath d='M267 534 c-17 -18 -3 -24 54 -24 44 0 60 3 57 13 -5 13 -99 23 -111%0A11z'/%3E%3Cpath d='M260 485 c0 -12 13 -15 60 -15 47 0 60 3 60 15 0 12 -13 15 -60 15%0A-47 0 -60 -3 -60 -15z'/%3E%3Cpath d='M260 445 c0 -12 13 -15 60 -15 47 0 60 3 60 15 0 12 -13 15 -60 15%0A-47 0 -60 -3 -60 -15z'/%3E%3Cpath d='M257 414 c-4 -4 -7 -43 -7 -86 l0 -78 -29 0 c-17 0 -32 -4 -35 -8 -3%0A-5 26 -40 64 -77 l70 -69 70 69 c38 37 67 72 64 77 -3 4 -18 8 -34 8 l-29 0%0A-3 83 -3 82 -60 3 c-34 2 -64 0 -68 -4z m103 -104 c0 -72 2 -81 20 -88 19 -7%0A17 -10 -20 -47 l-40 -39 -40 39 c-37 37 -39 40 -20 47 18 7 20 16 20 88 l0 80%0A40 0 40 0 0 -80z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+[class*="down-vote-fill-"] {
+    content: "";
+    display: block;
+    width: 1em;
+    height: 1em;
+    background-size: contain;
+    background-repeat: repeat;
+    font-size: 40px;
+}
+.down-vote-fill-security {
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' standalone='no'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 20010904//EN' 'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'%3E%3Csvg version='1.0' xmlns='http://www.w3.org/2000/svg' width='64.000000pt' height='64.000000pt' viewBox='0 0 64.000000 64.000000' preserveAspectRatio='xMidYMid meet'%3E%3Cg transform='translate(0.000000,64.000000) scale(0.100000,-0.100000)'%0Afill='%23000000' stroke='none'%3E%3Cpath d='M265 530 c-4 -6 17 -10 55 -10 38 0 59 4 55 10 -3 6 -28 10 -55 10%0A-27 0 -52 -4 -55 -10z'/%3E%3Cpath d='M260 490 c0 -6 27 -10 60 -10 33 0 60 4 60 10 0 6 -27 10 -60 10 -33%0A0 -60 -4 -60 -10z'/%3E%3Cpath d='M260 450 c0 -6 27 -10 60 -10 33 0 60 4 60 10 0 6 -27 10 -60 10 -33%0A0 -60 -4 -60 -10z'/%3E%3Cpath d='M256 404 c-3 -9 -6 -47 -6 -85 l0 -69 -30 0 c-16 0 -30 -4 -30 -8 0%0A-4 29 -37 65 -72 l65 -64 65 64 c36 35 65 68 65 72 0 4 -16 8 -35 8 l-35 0 0%0A85 0 85 -59 0 c-44 0 -60 -4 -65 -16z'/%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.dlete-coment-modal {
+    color: black;
+}
+
+.coment {
+    width: 95%;
+    margin: auto;
+    border: 1px solid #808080;
+}
+
+ 
+@media only screen and (min-width: 1200px) {
+    .post {
+        width: 50%;
+    }
+}
+@media only screen and (max-width: 1200px) {
+    .post {
+        width: 65%;
+    }
+}
+@media only screen and (max-width: 992px) {
+    .post {
+        width: 75%;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .post {
+        width: 90%;
+    }
+}
+/*  */
+
+/* footer */
+.flex-wrapper {
+    display: flex;
+    min-height: 10px;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+.footer {
+    margin-top: auto;
+    background-color: #101012;
+}
+
+.footer-elements {
+    display: flex;
+    justify-content: center;
+}
+
+.background-filler {
+    min-height: calc(100vh - 56px - 25px);
+    background-color: #16161D;
+    margin: auto;
+}
+
+
+.page-wrpaer {
+    min-height: 100%;
+}
+/*  */
+

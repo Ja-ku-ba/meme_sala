@@ -5,42 +5,147 @@ Najlepszy mem
 {% endblock %}
 
 {% block content %}
-    {% if request.user == post_req.owner %}
-        <a href="{% url 'post_delete' post_req.id %}">Usuń post</a>
-    {% endif %}
-
-    <p>{{post_req.owner}} | {{post_req.added}}</p>
-    <p>{{post_req.title}}</p>
-    <p>{{post_req.body}}</p>
-    {% load static %}<img src="{% static 'posts/' %}{{post_req.owner.id}}/{{post_req.id}}.png">
-
-    <div style="display: flex; flex-direction: row;">
-        <form method="Post" action="{% url 'like' post_req.id %}">
-            {% csrf_token %}
-            <input type="submit" value="Like">
-        </form>
-        {{post_req.interactions}}
-        <form method="POST" action="{% url 'dislike' post_req.id %}">
-            {% csrf_token %}
-            <input type="submit" value="Dislike">
-        </form>
-    </div>
-    <hr>
-    <form method="POST" action="">
-        {% csrf_token %}
-        <textarea name="body" rows="4" cols="100"></textarea>
-        <input type="submit" name="coment" value="Dodaj">
-    </form>
-    <hr>
-    {% for coment in coments %}
-    <div>
-        {% if request.user == coment.owner %}
-        <a href="{% url 'coment_delete' coment.id %}">Usuń komentarz</a>
+<br>
+<div class="post card bg-dark m-auto">
+    <div class="card-header text-center">
+        <a class="feed-link" href="#">@{{post.owner}}</a><span class="feed-link"><span> | {{post.added}}</span>
+            
+        {% if request.user == post.owner %}
+            <span> | </span>
+            <!-- Button trigger modal -->
+            <a class="feed-link" data-toggle="modal" data-target="#exampleModal">Usuń post</a>
+            
+            <!-- Modal -->
+            <div class="modal fade dlete-coment-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Usuń post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    Czy na pewno chcesz usunąć post: {{post.body | truncatewords:50}}
+                    </div>
+                    <div class="modal-footer">
+                        <form method="POST" action="{% url 'post_delete' post.id %}">
+                            {% csrf_token %}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
+                            <button type="submit" class="btn btn-primary">Usuń</button>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
         {% endif %}
-        <a>{{coment.owner}} | {{coment.added}}</a>
-        <p>{{coment.body}}</p>
-        <hr>
     </div>
-    {% endfor %}
+    <div class="card-body">
+        <h5 class="card-title">{{post.title}}</h5>
+        <p class="card-text">{{post.body | truncatewords:50}}</p>
+        {% load static %}<img class="image" src="{% static 'posts/' %}{{post.owner.id}}/{{post.id}}.png" onerror="this.style.display = 'none'">
+    </div>
+    <div class="d-flex justify-content-center align-items-center pb-2">
+        <div style="display: flex; flex-direction: row;">
+            {% if request.user.is_authenticated %}
+                <form method="Post" action="{% url 'like' post.id %}">
+                    {% csrf_token %}
+                    {% if like_status is False %}
+                        <button class="bg-transparent border-0" type="submit">
+                            <div class="up-vote-empty">
+                                <span class="up-vote-empty-security">
+                                </span>
+                            </div>
+                        </button>
+                    {% else %}
+                        <button class="bg-transparent border-0" type="submit">
+                            <div class="up-vote-fill">
+                                <span class="up-vote-fill-security">
+                                </span>
+                            </div>
+                        </button>
+                    {% endif %}
+                </form>
+            {% endif %}
+            <div class="pl-3 pr-3">
+                {{post.interactions}}
+            </div>
+            {% if request.user.is_authenticated %}
+                <form method="POST" action="{% url 'dislike' post.id %}">
+                    {% csrf_token %}
+                    {% if dislike_status is False %}
+                        <button class="bg-transparent border-0" type="submit">
+                            <div class="down-vote-empty">
+                                <span class="down-vote-empty-security">
+                                </span>
+                            </div>
+                        </button>
+                    {% else %}
+                        <button class="bg-transparent border-0" type="submit">
+                            <div class="down-vote-fill">
+                                <span class="down-vote-fill-security">
+                                </span>
+                            </div>
+                        </button>
+                    {% endif %}
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
+<br>
+
+<div class="card w-75 m-auto bg-dark"> 
+    <div class="d-flex justify-content-center">
+        <form class="p-4 d-inline-flex" method="POST" action="">
+            {% csrf_token %}
+            <textarea name="body" cols="95" rows="3"></textarea>
+            <input class=" btn btn-secondary h-100" type="submit" name="coment" value="Dodaj">
+        </form>  
+    </div>
+    <br>
+    {% for coment in coments %}
+        <div class="card bg-dark coment">
+            <div class="card-header text-center">
+                <a class="feed-link" href="#">{{coment.owner}}</a><span> | {{coment.added}}</span>
+                {% if request.user == coment.owner %}
+                    <!-- Delete coment modal -->
+                    <a class="feed-link" data-toggle="modal" data-target="#exampleModal">
+                        Usuń komentarz
+                    </a>
+                    <!-- Delete coment modal -->
+                    <div class="modal fade dlete-coment-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Usuń komentarz</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Czy na pewno chcesz usunąć ten komentarz: {{coment.body}}?
+                        </div>
+                        <div class="modal-footer">
+                            <form method="POST" action="{% url 'coment_delete' coment.id %}">
+                                {% csrf_token %}            
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
+                                <button type="submit" class="btn btn-primary">Usuń</button>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    
+                {% endif %}
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-dark">{{coment.body}}</li>
+            </ul>
+        </div>
+        <br>
+    {% endfor %}
+</div>
+<br>
 {% endblock %}

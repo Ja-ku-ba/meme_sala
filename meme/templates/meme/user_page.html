@@ -5,11 +5,23 @@
 {% endblock %}
 
 {% block content %}
-<a href="{% url 'user_interactions' %}">Interakcje</a>
-<hr>
-<h1>{{request.user}}</h1>
-{% for post in user_posts %}
-<a href="{% url 'post' post.id %}">{{post}}</a>
-<hr>
-{% endfor %}
+    <div class="background-filler">
+        <br>
+        {% for post in posts %}
+                <div class="post card bg-dark m-auto">
+                    <div class="card-header text-center">
+                        <a class="feed-link" href="#">@{{post.owner}}</a><span class="feed-link"> | {{post.added}}
+                    </div>
+                    <a class="text-decoration-none bg-dark feed-link" href="{% url 'post' post.id %}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{post.title}}</h5>
+                            <p class="card-text">{{post.body | truncatewords:50}}</p>
+                            {% load static %}<img class="image" src="{% static 'posts/' %}{{post.owner.id}}/{{post.id}}.png" onerror="this.style.display = 'none'">
+                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                        </div>
+                    </a>
+                </div>
+            <br>
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -3,6 +3,7 @@ from itertools import chain
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from .forms import UserForm, LoginForm, PostForm
 from .models import Account, Post, Like, Dislike, Coment
@@ -22,16 +23,17 @@ def register(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save(commit=False)
             email = form.cleaned_data.get('email').lower()
             if Account.objects.filter(email=email).exists():
                 messages.danger(request, "Użytkownik z podnaym adresem email już istnieje, spróbuj się zalogować.")
                 return redirect('register')
+            form.save(commit=True)
             raw_password = form.cleaned_data.get('password1')
             account = authenticate(email=email, password=raw_password)
             login(request, account)
             
-            messages.success(request, f"Zalogowano pomyślnie, witaj {form.username}")
+            messages.success(request, f"Zalogowano pomyślnie, witaj {account.username}")
             return redirect('home')
         else:
             email = request.POST.get('email').lower()
@@ -42,7 +44,7 @@ def register(request):
             if Account.objects.filter(username=username).exists():
                 messages.danger(request, "Użytkownik o podanej nazwie już istnieje, spróbuj innej.")
             else:
-                messages.danger(request, "Wprowadzone hasła są różne.")
+                messages.danger(request, "Sprawdź czy wprowadzne hasła są takie same.")
             return redirect('register')
 
     return render(request, 'meme/login_register.html', context)
@@ -73,6 +75,7 @@ def login_user(request):
             messages.danger(request, 'Błędna nazwa użytkowinka lub hasło')
         else:
             login(request, user)
+            messages.success(request, f"Zalogowano pomyślnie, witaj {user.username}")
             return redirect('home')
     return render(request, 'meme/login_register.html', context)
 
@@ -81,6 +84,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
+    messages.info(request, "Wylogowano pomyślnie.")
     return redirect('home')
 
 
@@ -96,7 +100,11 @@ def post_add(request):
                 body = request.POST.get('body'),
                 owner = request.user,
             )
-            new_post.image = request.FILES.get('image')
+            img = request.FILES.get('image')
+            if img is None:
+                messages.info(request, "Aby dodać post, muszisz dodać mema")
+                return redirect('post_add')
+            new_post.image = img
             new_post.save()
             messages.success(request, "Post został dodany")
 
@@ -119,14 +127,22 @@ def post(request, pk):
     # add coment function
     if request.method == "POST":
         if request.POST.get('coment'):
+            body = request.POST.get("body")
+            body = body[:256]
             Coment.objects.create(
                 post = post_req,
-                body = request.POST.get("body"),
+                body = body,
                 owner = request.user
             )
 
             return redirect('post', post_req.id)
-    context = {'post_req':post_req, 'coments':coments}
+    if request.user.is_authenticated:
+        like_status = Like.objects.filter(post=post_req, owner=request.user).exists()
+        dislike_status = Dislike.objects.filter(post=post_req, owner=request.user).exists()
+    else:
+        like_status = False
+        dislike_status = False
+    context = {'post':post_req, 'coments':coments, 'like_status':like_status, 'dislike_status':dislike_status}
     return render(request, 'meme/post.html', context)
 
 
@@ -249,7 +265,7 @@ def user_page(request, pk):
 
     user_posts = Post.objects.filter(owner=user)
 
-    context = {'user':user, 'user_posts':user_posts}
+    context = {'user':user, 'posts':user_posts}
     return render(request, 'meme/user_page.html', context)
 
 

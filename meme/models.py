@@ -103,6 +103,9 @@ class Coment(models.Model):
     def __str__(self):
         return f"{self.post.id}"
     
+    class Meta:
+        ordering = ["-added"]
+    
 
 
 class Interaction(models.Model):
