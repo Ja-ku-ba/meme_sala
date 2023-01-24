@@ -27,6 +27,7 @@ def register(request):
 		if form.is_valid():
 			form.save()
 			email = form.cleaned_data.get('email').lower()
+			username = form.cleaned_data.get('username').lower()
 			raw_password = form.cleaned_data.get('password1')
 			account = authenticate(email=email, password=raw_password)
 			login(request, account)
@@ -298,29 +299,38 @@ def user_notifications(request):
 	context = {'posts':posts, 'interactions':interactions}
 	return render(request, 'meme/user_notifications.html', context)
 
-def user_settings(request):
+def user_settings_page(request):
 	form = UserSettingsForm
 	form_password = PasswordChangeForm
 	if request.method == "POST":
-		form = form(request.POST)
-		if form.is_valid():
-			email = form.cleaned_data.get('email').lower()
-			username = form.cleaned_data.get('username').lower()
-			print(username, email, '-------------------------------------------------------------------')
+		email_username = request.POST.get("email-username-form")
+		pword = request.POST.get("password-form")
+		if email_username is not None:
+			user_model = Account.objects.get(id=request.user.id)
+			form = form(request.POST)
+			if form.is_valid():
+				email = form.cleaned_data.get('email').lower()
+				if email != "":
+					user_model.email = email
+
+				username = form.cleaned_data.get('username')
+				if username != "":
+					user_model.username = username
+
+				user_model.save()
+				messages.success(request, "Zmiany zostały zapisane.")
+
+		if pword is not None:
+			form_password = form_password(user = request.user, data = request.POST)
+			if form_password.is_valid():
+				form_password.save()
+				update_session_auth_hash(request, form_password.user)  # <-- keep the user loged after password change
+				messages.success(request, 'Twoje hasło zostało zmienione pomyślnie.')
+				return redirect('user_settings')
+			else:
+				messages.danger(request, 'Proszę popraw błędy.')
+
+
 	context = {'form':form, "form_password":form_password}
 	return render(request, 'meme/user_settings.html', context)
 
-def change_password(request):
-	form = UserSettingsForm
-	form_password = PasswordChangeForm
-	if request.method == "POST":
-		form_password = form_password(request.user, request.POST)
-		if form_password.is_valid():
-			user = form_password.save()
-			update_session_auth_hash(request, user)
-			messages.success(request, 'Hasło zostało zmienione poprawnie')
-			return redirect('user_settings')
-		else:
-			messages.error(request, 'Please correct the error below.')
-	context = {'form':form, "form_password":form_password}
-	return render(request, 'meme/user_settings.html', context)

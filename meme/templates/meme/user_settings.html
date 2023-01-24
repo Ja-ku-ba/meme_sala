@@ -10,8 +10,9 @@ Ustawienia
         <br>
         <div class="post card bg-dark m-auto">
             <div class="card-body pb-0">
-                <form method="POST" id="email-username" action="" enctype="multipart/form-data">
+                <form method="POST" id="email-username" enctype="multipart/form-data">
                     {% csrf_token %}
+                    <input type="hidden" name="email-username-form">
                     <div class="form-group">
                         <label for="exampleInputEmail11" id="inputGroup-sizing-sm">Nazwa użytkownika:</label>
                         <input id="exampleInputEmail11" name="username" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="{{user.username}}">
@@ -26,12 +27,12 @@ Ustawienia
                         <input data-toggle="modal" data-target="#exampleModal" class="form-control input-sm"  aria-describedby="inputGroup-sizing-sm" placeholder="*********" readonly>
                     </div>
                     <br>
-                    <input type="submit" class="btn btn-colour interactions m-auto" value="Zapisz">
+                    <button type="submit" class="btn btn-colour interactions m-auto">Zapisz</button>
                 </form>
                 <br>
             </div>
         </div>
-    
+
     </div>
     <!-- Delete account triger -->
     <a class="feed-link delete-button-pos" href="#" data-toggle="modal" data-target="#deleteaccount">
@@ -69,24 +70,28 @@ Ustawienia
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="password" id="inputGroup-sizing-sm">Twoje stare hasło:</label>
-                        <input id="password" name="old-password" type="password" class="form-control input-sm"  aria-describedby="inputGroup-sizing-sm" placeholder="{{requset.user.email}}">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <input type="hidden" name="password-form">
+                        <div class="form-group">
+                            <label for="password" id="inputGroup-sizing-sm">Twoje stare hasło:</label>
+                            <input id="password" name="old-password" type="password" class="form-control input-sm"  aria-describedby="inputGroup-sizing-sm" placeholder="{{requset.user.email}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" id="inputGroup-sizing-sm">Nowe hasło:</label>
+                            <input name="password1" type="password" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="{{requset.user.email}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" id="inputGroup-sizing-sm">Potwierdź nowe hasło:</label>
+                            <input name="password2" type="password" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="{{requset.user.email}}">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="password" id="inputGroup-sizing-sm">Nowe hasło:</label>
-                        <input name="password1" type="password" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="{{requset.user.email}}">
+                    <div class="modal-footer modal-borders-top">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
+                        <button type="submit" class="btn btn-primary">Potwierdź</button>
                     </div>
-                    <div class="form-group">
-                        <label for="password" id="inputGroup-sizing-sm">Potwierdź nowe hasło:</label>
-                        <input name="password2" type="password" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="{{requset.user.email}}">
-                    </div>
-                </div>
-                <div class="modal-footer modal-borders-top">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
-                    <button type="button" class="btn btn-primary">Potwierdź</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>   
