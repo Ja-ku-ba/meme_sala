@@ -20,4 +20,5 @@ urlpatterns = [
     path('profil/<str:pk>', views.user_page, name='user_page'),
     path('interakcje', views.user_interactions, name='user_interactions'),
     path('powiadomienia', views.user_notifications, name='user_notifications'),
+    path('ustawienia', views.user_settings, name='user_settings'),
 ]

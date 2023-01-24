@@ -5,6 +5,7 @@ Zarejestruj
 {% endblock %}
 
 {% block content %}
+<div class="background-filler">
 <form method="POST" action="">
     {% csrf_token %}
     {% for field in form %}
@@ -23,4 +24,5 @@ Zarejestruj
     <p>Chcesz założyć konto?</p>
     <a href="{% url 'login' %}">zaloguj</a>
 {% endif %}
+</div>
 {% endblock %}
