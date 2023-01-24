@@ -13,6 +13,9 @@ textarea {
 
 #nav-bar {
     background-color: #101012;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
 }
 
 #feed {
@@ -38,6 +41,33 @@ a.feed-link:hover, a.feed-link:visited, a.feed-link:active, a.feed-link:link {
     height: auto;
     margin: auto;
     display: block;
+}
+
+.interactions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2vh;
+}
+
+.interaction-field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #565d66;
+    border-radius: 12px;
+}
+
+.dlete-coment-x {
+    color: white;
+}
+
+.modal-borders-top {
+    border-top: 1px solid #16161D;
+}
+
+.modal-borders-bottom {
+    border-bottom: 1px solid #16161D;
 }
 
 [class*="up-vote-empty-"] {
@@ -90,10 +120,6 @@ a.feed-link:hover, a.feed-link:visited, a.feed-link:active, a.feed-link:link {
 }
 .down-vote-fill-security {
     background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' standalone='no'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 20010904//EN' 'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'%3E%3Csvg version='1.0' xmlns='http://www.w3.org/2000/svg' width='64.000000pt' height='64.000000pt' viewBox='0 0 64.000000 64.000000' preserveAspectRatio='xMidYMid meet'%3E%3Cg transform='translate(0.000000,64.000000) scale(0.100000,-0.100000)'%0Afill='%23000000' stroke='none'%3E%3Cpath d='M265 530 c-4 -6 17 -10 55 -10 38 0 59 4 55 10 -3 6 -28 10 -55 10%0A-27 0 -52 -4 -55 -10z'/%3E%3Cpath d='M260 490 c0 -6 27 -10 60 -10 33 0 60 4 60 10 0 6 -27 10 -60 10 -33%0A0 -60 -4 -60 -10z'/%3E%3Cpath d='M260 450 c0 -6 27 -10 60 -10 33 0 60 4 60 10 0 6 -27 10 -60 10 -33%0A0 -60 -4 -60 -10z'/%3E%3Cpath d='M256 404 c-3 -9 -6 -47 -6 -85 l0 -69 -30 0 c-16 0 -30 -4 -30 -8 0%0A-4 29 -37 65 -72 l65 -64 65 64 c36 35 65 68 65 72 0 4 -16 8 -35 8 l-35 0 0%0A85 0 85 -59 0 c-44 0 -60 -4 -65 -16z'/%3E%3C/g%3E%3C/svg%3E%0A");
-}
-
-.dlete-coment-modal {
-    color: black;
 }
 
 .coment {
@@ -149,9 +175,29 @@ a.feed-link:hover, a.feed-link:visited, a.feed-link:active, a.feed-link:link {
     margin: auto;
 }
 
-
 .page-wrpaer {
     min-height: 100%;
 }
 /*  */
 
+/* user page */
+.user-page-options {
+    display: flex;
+    justify-content: space-around;
+}
+/*  */
+
+/* add post */
+.image-fields {
+    display: flesx;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*  */

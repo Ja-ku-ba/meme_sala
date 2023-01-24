@@ -79,6 +79,7 @@ class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     owner = models.ForeignKey(Account, on_delete=models.CASCADE)
     added = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=1, default='l')
 
     def __str__(self):
         return f"{self.post.id}"
@@ -87,6 +88,7 @@ class Dislike(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     owner = models.ForeignKey(Account, on_delete=models.CASCADE)
     added = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=1, default='d')
 
     def __str__(self):
         return f"{self.post.id}"
@@ -99,6 +101,7 @@ class Coment(models.Model):
     owner = models.ForeignKey(Account, on_delete=models.CASCADE)
     body = models.CharField(max_length=1024)
     added = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=1, default='c')
 
     def __str__(self):
         return f"{self.post.id}"
@@ -106,12 +109,3 @@ class Coment(models.Model):
     class Meta:
         ordering = ["-added"]
     
-
-
-class Interaction(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    owner = models.ForeignKey(Account, on_delete=models.CASCADE)
-    added = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.owner}"

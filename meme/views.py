@@ -93,6 +93,10 @@ def post_add(request):
     form = PostForm
     context = {'form':form}
     if request.method == "POST":
+        img = request.FILES.get('image')
+        if img is None:
+            messages.info(request, "Aby dodać post, muszisz dodać mema")
+            return redirect('post_add')
         form = PostForm(request.POST, request.FILES)
         if form.is_valid:
             new_post = Post.objects.create(
@@ -100,10 +104,6 @@ def post_add(request):
                 body = request.POST.get('body'),
                 owner = request.user,
             )
-            img = request.FILES.get('image')
-            if img is None:
-                messages.info(request, "Aby dodać post, muszisz dodać mema")
-                return redirect('post_add')
             new_post.image = img
             new_post.save()
             messages.success(request, "Post został dodany")
@@ -275,8 +275,16 @@ def user_interactions(request):
     coments = Coment.objects.filter(owner=request.user)
 
     interactions = chain(likes, dislikes, coments)
-    context = {'interactions':interactions}
+    context = {'posts':interactions}
     return render(request, 'meme/user_interactions.html', context)
-# coment_status = Coment.objects.filter(post=post_req, owner=request.user).exists()
-# like_status = Like.objects.filter(post=post_req, owner=request.user).exists()
-# dislike_status = Dislike.objects.filter(post=post_req, owner=request.user).exists()
+
+def user_notifications(request):
+    posts = Post.objects.filter(owner=request.user)
+    likes = Like.objects.all()
+    dislikes = Dislike.objects.all()
+    coments = Coment.objects.all()
+
+    # to optimalize
+    interactions = chain(likes, dislikes, coments)
+    context = {'posts':posts, 'interactions':interactions}
+    return render(request, 'meme/user_notifications.html', context)

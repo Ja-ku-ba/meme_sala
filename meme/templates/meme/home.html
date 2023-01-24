@@ -9,7 +9,7 @@ Strona główna
     {% for post in posts %}
             <div class="post card bg-dark m-auto">
                 <div class="card-header text-center">
-                    <a class="feed-link" href="#">@{{post.owner}}</a><span class="feed-link"> | {{post.added}}
+                    <a class="feed-link" href="{% url 'user_page' post.owner.id %}">@{{post.owner}}</a><span class="feed-link"> | {{post.added | date:"G:i d.m"}}
                 </div>
                 <a class="text-decoration-none bg-dark feed-link" href="{% url 'post' post.id %}">
                     <div class="card-body">

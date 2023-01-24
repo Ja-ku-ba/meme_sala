@@ -18,5 +18,6 @@ urlpatterns = [
          
     
     path('profil/<str:pk>', views.user_page, name='user_page'),
-    path('interakscje', views.user_interactions, name='user_interactions'),
+    path('interakcje', views.user_interactions, name='user_interactions'),
+    path('powiadomienia', views.user_notifications, name='user_notifications'),
 ]

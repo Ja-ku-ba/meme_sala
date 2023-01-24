@@ -5,8 +5,21 @@ Intearkscje {{request.user}}
 {% endblock %}
 
 {% block content %}
-{% for interaction in interactions %}
-<a href="{% url 'post' interaction.post.id %}">{{interaction.added}}</a>
-<hr>
+{% for post in posts %}
+<div class="background-filler">
+    <div class="post card bg-dark m-auto">
+        <div class="card-header text-center">
+            <a class="feed-link" href="{% url 'user_page' post.post.owner.id %}">@{{post.post.owner}}</a><span class="feed-link"> | {{post.added | date:"G:i d.m"}}
+        </div>
+        <a class="text-decoration-none bg-dark feed-link" href="{% url 'post' post.post.id %}">
+            <div class="card-body">
+                <h5 class="card-title">{{post.post.title}}</h5>
+                <p class="card-text">{{post.post.body | truncatewords:50}}</p>
+                {% load static %}<img class="image" src="{% static 'posts/' %}{{post.post.owner.id}}/{{post.post.id}}.png" onerror="this.style.display = 'none'">
+            </div>
+        </a>
+    </div>
+    <br>
+</div>
 {% endfor %}
 {% endblock %}

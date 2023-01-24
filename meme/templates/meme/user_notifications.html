@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Powiadomienia
+{% endblock %}
+
+{% block content %}
+<div class="background-filler">
+    <br>
+    {% for post in posts %}
+        <!-- optimalize code below -->
+           
+        {% for interaction in interactions %}
+            <div class="card bg-dark w-75 m-auto">
+                {% if interaction.post == post %}
+                    {% if interaction.status == 'l' %}
+                        <div class="card-header">
+                            <a class="feed-link" href="{% url 'user_page' interaction.owner.id %}">@{{ interaction.owner }}</a><span> | polubiono | </span><a class="feed-link" href="{% url 'post' post.id %}">{{post.body | truncatewords:10}}</a>
+                        </div>
+                    {% elif interaction.status == 'd' %}
+                        <div class="card-header">
+                            <a class="feed-link" href="{% url 'user_page' interaction.owner.id %}">@{{ interaction.owner }}</a><span> | znielubiono | </span><a class="feed-link" href="{% url 'post' post.id %}">{{post.body | truncatewords:10}}</a>
+                        </div>
+                    {% else %}
+                        <div class="card-header">
+                            <a class="feed-link" href="{% url 'user_page' interaction.owner.id %}">@{{ interaction.owner }}</a><span> | skomentowano | </span><a class="feed-link" href="{% url 'post' post.id %}">{{post.body | truncatewords:10}}</a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <br>
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}

@@ -5,9 +5,37 @@ Dodaj post
 {% endblock %}
 
 {% block content %}
-<form method="POST" action="" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Dodaj">
-</form>
+<div class="background-filler">
+    <br>
+    <div class="post card bg-dark m-auto">
+        <div class="card-body pb-0">
+            <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Nagłówek</span>
+                    </div>
+                    <input name="title" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1"></label>
+                    <textarea name="body" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Treść twojego postu"></textarea>
+                </div>
+                <div class="interactions">
+                    <div class="interaction-field">
+                        <div class="p-3">
+                            <label class="image-label" for="exampleFormControlFile1">Twój mem:</label>
+                            <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
+                        </div>
+                    </div>
+                </div>
+                <div class="interactions">
+                    <div class="interaction-field">
+                        <input type="submit" value="Dodaj">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

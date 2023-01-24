@@ -5,30 +5,29 @@ Najlepszy mem
 {% endblock %}
 
 {% block content %}
+<div class="background-filler">
 <br>
 <div class="post card bg-dark m-auto">
     <div class="card-header text-center">
-        <a class="feed-link" href="#">@{{post.owner}}</a><span class="feed-link"><span> | {{post.added}}</span>
-            
+        <a class="feed-link" href="{% url 'user_page' post.owner.id %}">@{{post.owner}}</a><span> | {{post.added | date:"G:i d.m"}}</span>
         {% if request.user == post.owner %}
             <span> | </span>
             <!-- Button trigger modal -->
-            <a class="feed-link" data-toggle="modal" data-target="#exampleModal">Usuń post</a>
-            
+            <a class="feed-link" href="#" data-toggle="modal" data-target="#exampleModal">Usuń post</a>
             <!-- Modal -->
             <div class="modal fade dlete-coment-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Usuń post</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="modal-content bg-dark">
+                    <div class="modal-header modal-borders-bottom">
+                        <h5 class="modal-title" id="exampleModalLabel">Usuń post</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
                     Czy na pewno chcesz usunąć post: {{post.body | truncatewords:50}}
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer  modal-borders-top">
                         <form method="POST" action="{% url 'post_delete' post.id %}">
                             {% csrf_token %}
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
@@ -40,63 +39,64 @@ Najlepszy mem
             </div>
         {% endif %}
     </div>
-    <div class="card-body">
+    <div class="card-body pb-0">
         <h5 class="card-title">{{post.title}}</h5>
-        <p class="card-text">{{post.body | truncatewords:50}}</p>
+        <p class="card-text">{{post.body}}</p>
         {% load static %}<img class="image" src="{% static 'posts/' %}{{post.owner.id}}/{{post.id}}.png" onerror="this.style.display = 'none'">
-    </div>
-    <div class="d-flex justify-content-center align-items-center pb-2">
-        <div style="display: flex; flex-direction: row;">
-            {% if request.user.is_authenticated %}
-                <form method="Post" action="{% url 'like' post.id %}">
-                    {% csrf_token %}
-                    {% if like_status is False %}
-                        <button class="bg-transparent border-0" type="submit">
-                            <div class="up-vote-empty">
-                                <span class="up-vote-empty-security">
-                                </span>
-                            </div>
-                        </button>
-                    {% else %}
-                        <button class="bg-transparent border-0" type="submit">
-                            <div class="up-vote-fill">
-                                <span class="up-vote-fill-security">
-                                </span>
-                            </div>
-                        </button>
-                    {% endif %}
-                </form>
-            {% endif %}
-            <div class="pl-3 pr-3">
-                {{post.interactions}}
+        <div class="interactions">
+            <div class="interaction-field">
+                {% if request.user.is_authenticated %}
+                    <form method="Post" action="{% url 'like' post.id %}">
+                        {% csrf_token %}
+                        {% if like_status is False %}
+                            <button class="bg-transparent border-0" type="submit">
+                                <div class="up-vote-empty">
+                                    <span class="up-vote-empty-security">
+                                    </span>
+                                </div>
+                            </button>
+                        {% else %}
+                            <button class="bg-transparent border-0" type="submit">
+                                <div class="up-vote-fill">
+                                    <span class="up-vote-fill-security">
+                                    </span>
+                                </div>
+                            </button>
+                        {% endif %}
+                    </form>
+                {% endif %}
+                <div class="pl-3 pr-3">
+                    {{post.interactions}}
+                </div>
+                {% if request.user.is_authenticated %}
+                    <form method="POST" action="{% url 'dislike' post.id %}">
+                        {% csrf_token %}
+                        {% if dislike_status is False %}
+                            <button class="bg-transparent border-0" type="submit">
+                                <div class="down-vote-empty">
+                                    <span class="down-vote-empty-security">
+                                    </span>
+                                </div>
+                            </button>
+                        {% else %}
+                            <button class="bg-transparent border-0" type="submit">
+                                <div class="down-vote-fill">
+                                    <span class="down-vote-fill-security">
+                                    </span>
+                                </div>
+                            </button>
+                        {% endif %}
+                    </form>
+                {% endif %}
             </div>
-            {% if request.user.is_authenticated %}
-                <form method="POST" action="{% url 'dislike' post.id %}">
-                    {% csrf_token %}
-                    {% if dislike_status is False %}
-                        <button class="bg-transparent border-0" type="submit">
-                            <div class="down-vote-empty">
-                                <span class="down-vote-empty-security">
-                                </span>
-                            </div>
-                        </button>
-                    {% else %}
-                        <button class="bg-transparent border-0" type="submit">
-                            <div class="down-vote-fill">
-                                <span class="down-vote-fill-security">
-                                </span>
-                            </div>
-                        </button>
-                    {% endif %}
-                </form>
-            {% endif %}
         </div>
     </div>
+    
 </div>
 
 <br>
 
-<div class="card w-75 m-auto bg-dark"> 
+<div class="card post m-auto bg-dark"> 
     <div class="d-flex justify-content-center">
         <form class="p-4 d-inline-flex" method="POST" action="">
             {% csrf_token %}
@@ -108,34 +108,34 @@ Najlepszy mem
     {% for coment in coments %}
         <div class="card bg-dark coment">
             <div class="card-header text-center">
-                <a class="feed-link" href="#">{{coment.owner}}</a><span> | {{coment.added}}</span>
+                <a class="feed-link" href="{% url 'user_page' coment.owner.id %}">@{{coment.owner}}</a><span> | {{coment.added | date:"G:i d.m"}}</span>
                 {% if request.user == coment.owner %}
                     <!-- Delete coment modal -->
-                    <a class="feed-link" data-toggle="modal" data-target="#exampleModal">
+                    <a class="feed-link" href="#" data-toggle="modal" data-target="#exampleModalcoment">
                         Usuń komentarz
                     </a>
                     <!-- Delete coment modal -->
-                    <div class="modal fade dlete-coment-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Usuń komentarz</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
+                    <div class="modal fade" id="exampleModalcoment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content bg-dark modals-text">
+                                <div class="modal-header modal-borders-bottom">
+                                    <h5 class="modal-title" id="exampleModalLabel">Usuń komentarz</h5>
+                                    <button type="button" class="close dlete-coment-x" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Czy na pewno chcesz usunąć ten komentarz: {{coment.body}}?
+                                </div>
+                                <div class="modal-footer modal-borders-top">
+                                    <form method="POST" action="{% url 'coment_delete' coment.id %}">
+                                        {% csrf_token %}            
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
+                                        <button type="submit" class="btn btn-primary">Usuń</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            Czy na pewno chcesz usunąć ten komentarz: {{coment.body}}?
-                        </div>
-                        <div class="modal-footer">
-                            <form method="POST" action="{% url 'coment_delete' coment.id %}">
-                                {% csrf_token %}            
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
-                                <button type="submit" class="btn btn-primary">Usuń</button>
-                            </form>
-                        </div>
-                        </div>
-                    </div>
                     </div>
                     
                 {% endif %}
@@ -148,4 +148,5 @@ Najlepszy mem
     {% endfor %}
 </div>
 <br>
+</div>
 {% endblock %}
