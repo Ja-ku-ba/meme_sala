@@ -27,9 +27,9 @@ def register(request):
 		if form.is_valid():
 			form.save()
 			email = form.cleaned_data.get('email').lower()
-			username = form.cleaned_data.get('username').lower()
 			raw_password = form.cleaned_data.get('password1')
-			account = authenticate(email=email, password=raw_password)
+			username = form.cleaned_data.grt('username')
+			account = authenticate(email=email, password=raw_password, username=username)
 			login(request, account)
 			
 			messages.success(request, f"Zalogowano pomyślnie, witaj {account.username}")
@@ -37,13 +37,13 @@ def register(request):
 		else:
 			email = request.POST.get('email').lower()
 			if Account.objects.filter(email=email).exists():
-				messages.danger(request, "Użytkownik z podnaym adresem email już istnieje, spróbuj się zalogować.")
+				messages.error(request, "Użytkownik z podnaym adresem email już istnieje, spróbuj się zalogować.")
 			
 			username = request.POST.get('username')
 			if Account.objects.filter(username=username).exists():
-				messages.danger(request, "Użytkownik o podanej nazwie już istnieje, spróbuj innej.")
+				messages.error(request, "Użytkownik o podanej nazwie już istnieje, spróbuj innej.")
 			else:
-				messages.danger(request, "Sprawdź czy wprowadzne hasła są takie same.")
+				messages.error(request, "Sprawdź czy wprowadzne hasła są takie same.")
 			return redirect('register')
 
 	return render(request, 'meme/login_register.html', context)
@@ -71,7 +71,7 @@ def login_user(request):
 		user = authenticate(email=email, password=raw_password)
 
 		if checker is True or user is None:
-			messages.danger(request, 'Błędna nazwa użytkowinka lub hasło')
+			messages.error(request, 'Błędna nazwa użytkowinka lub hasło')
 		else:
 			login(request, user)
 			messages.success(request, f"Zalogowano pomyślnie, witaj {user.username}")
@@ -329,7 +329,7 @@ def user_settings_page(request):
 				messages.success(request, 'Twoje hasło zostało zmienione pomyślnie.')
 				return redirect('user_settings_page')
 			else:
-				messages.danger(request, 'Proszę popraw błędy.')
+				messages.error(request, 'Proszę popraw błędy.')
 
 		delete_account = request.POST.get('delete-account')
 		if delete_account is not None:

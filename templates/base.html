@@ -21,20 +21,40 @@
 <body>
     <div class="flex-wrapper">
         {% include 'navbar.html' %}
+
         {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-warning alert-dismissible fade show w-100 m-auto" role="alert">
-                {{ message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
+        <div id="messages-ceneter">
+            <div id="messages-container">
+                    {% for message in messages %}
+                        <div id="messages">
+                            {% if message.tags != "error" %}
+                                <div class="alert alert-{{message.tags}} alert-dismissible fade show btm-marg" role="alert">
+                                    {{ message }} 
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <br>
+                            {% else %}
+                                <div class="alert alert-danger alert-dismissible fade show btm-marg" role="alert">
+                                    {{ message }} 
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <br>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         {% endif %}
+
         <div class="container-md" id="feed">
             {% block content %}
             {% endblock %}
         </div>
+        
         <div class="footer">
             {% include 'footer.html' %}
         </div>

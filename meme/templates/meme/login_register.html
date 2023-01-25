@@ -4,25 +4,63 @@
 Zarejestruj
 {% endblock %}
 
+
 {% block content %}
 <div class="background-filler">
-<form method="POST" action="">
-    {% csrf_token %}
-    {% for field in form %}
-        {% for error in field.errors %}
-            <p style="color: red">{{ error }}</p>
-        {% endfor %}
-        {{field.label_tag}}{{field}}
-        <br>
-    {% endfor %}
-    <input type="submit" value="{{status}}">
-</form>
-{% if status == 'Zaloguj' %}
-    <p>Nie masz jeszcze konta?</p>
-    <a href="{% url 'register' %}">zarejestruj</a>
-{% else %}
-    <p>Chcesz założyć konto?</p>
-    <a href="{% url 'login' %}">zaloguj</a>
-{% endif %}
+    <br>
+    <div class="post card bg-dark m-auto">
+        <div class="card-body pb-0">
+            {% if status == 'Zaloguj' %}
+                <form method="POST" id="email-username" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden">
+                    <div class="form-group">
+                        <label for="exampleInputEmail11">Email:</label>
+                        <input id="exampleInputEmail11" name="email" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Hasło:</label>
+                        <input id="exampleInputEmail1" name="password" type="password" class="form-control">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-colour interactions m-auto">Zaloguj</a>
+                    </div>
+                </form>
+                <div>
+                    <label>Nie masz jeszcze konta?</label>
+                    <a href="{% url 'register' %}" class="feed-link m-auto">Zarejestruj</a>
+                </div>
+            {% else %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="email-username-form">
+                    <div class="form-group">
+                        <label for="exampleInputEmail11">Nazwa użytkownika:</label>
+                        <input id="exampleInputEmail11" name="username" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail11">Email:</label>
+                        <input id="exampleInputEmail11" name="email" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Hasło:</label>
+                        <input id="exampleInputEmail1" name="password1" type="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Potwierdź hasło:</label>
+                        <input id="exampleInputEmail1" name="password2" type="password" class="form-control">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-colour interactions m-auto">Zarejestruj</a>
+                    </div>
+                </form>
+                <div>
+                    <label>Masz już konto?</label>
+                    <a href="{% url 'login' %}" class="feed-link m-auto">Zaloguj</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </div>
+
 {% endblock %}
