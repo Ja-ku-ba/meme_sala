@@ -304,9 +304,8 @@ def user_settings_page(request):
 	form_password = PasswordChangeForm
 	if request.method == "POST":
 		email_username = request.POST.get("email-username-form")
-		pword = request.POST.get("password-form")
+		user_model = Account.objects.get(id=request.user.id)
 		if email_username is not None:
-			user_model = Account.objects.get(id=request.user.id)
 			form = form(request.POST)
 			if form.is_valid():
 				email = form.cleaned_data.get('email').lower()
@@ -320,16 +319,23 @@ def user_settings_page(request):
 				user_model.save()
 				messages.success(request, "Zmiany zostały zapisane.")
 
+		pword = request.POST.get("password-form")
 		if pword is not None:
 			form_password = form_password(user = request.user, data = request.POST)
+			print(form_password.is_valid)
 			if form_password.is_valid():
 				form_password.save()
 				update_session_auth_hash(request, form_password.user)  # <-- keep the user loged after password change
 				messages.success(request, 'Twoje hasło zostało zmienione pomyślnie.')
-				return redirect('user_settings')
+				return redirect('user_settings_page')
 			else:
 				messages.danger(request, 'Proszę popraw błędy.')
 
+		delete_account = request.POST.get('delete-account')
+		if delete_account is not None:
+			user_model.delete()
+			messages.warning(request, "Konto zostało usunięte, dziekujemy za korzystanie z naszego portalu.")
+			return redirect('home')
 
 	context = {'form':form, "form_password":form_password}
 	return render(request, 'meme/user_settings.html', context)

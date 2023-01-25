@@ -45,7 +45,7 @@ Ustawienia
         <div class="modal-content bg-dark">
             <div class="modal-header modal-borders-bottom">
                 <h5 class="modal-title" id="deleteaccountLabel">Usuń konto</h5>
-                <button type="button dlete-coment-x" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close dlete-coment-x" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -53,8 +53,12 @@ Ustawienia
                 Danej akcji nie będzie można cofnąć. Usunięte zostaną wszystkie dane powiązane z twoim profilem czy na pewno chcesz kontynuować?
             </div>
             <div class="modal-footer modal-borders-top">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
-                <button type="button" class="btn btn-primary">Usuń</button>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete-account">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
+                    <button type="submit" class="btn btn-primary">Usuń</button>
+                </form>
             </div>
         </div>
         </div>
@@ -76,20 +80,20 @@ Ustawienia
                         <input type="hidden" name="password-form">
                         <div class="form-group">
                             <label for="password" id="inputGroup-sizing-sm">Twoje stare hasło:</label>
-                            <input id="password" name="old-password" type="password" class="form-control input-sm"  aria-describedby="inputGroup-sizing-sm" placeholder="{{requset.user.email}}">
+                            <input name="old_password" id="password" type="password" class="form-control input-sm"  aria-describedby="inputGroup-sizing-sm" placeholder="{{requset.user.email}}">
                         </div>
                         <div class="form-group">
                             <label for="password" id="inputGroup-sizing-sm">Nowe hasło:</label>
-                            <input name="password1" type="password" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="{{requset.user.email}}">
+                            <input name="new_password1" type="password" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="{{requset.user.email}}">
                         </div>
                         <div class="form-group">
                             <label for="password" id="inputGroup-sizing-sm">Potwierdź nowe hasło:</label>
-                            <input name="password2" type="password" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="{{requset.user.email}}">
+                            <input name="new_password2" type="password" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="{{requset.user.email}}">
                         </div>
                     </div>
                     <div class="modal-footer modal-borders-top">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Wróć</button>
-                        <button type="submit" class="btn btn-primary">Potwierdź</button>
+                        <button type="submit" class="btn btn-primary">Zapisz</button>
                     </div>
                 </form>
             </div>
