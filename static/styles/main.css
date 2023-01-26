@@ -213,3 +213,11 @@ a.feed-link:hover, a.feed-link:visited, a.feed-link:active, a.feed-link:link {
     align-items: end;
     justify-content: center;
 }
+/*  */
+
+/* 404 */
+.not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

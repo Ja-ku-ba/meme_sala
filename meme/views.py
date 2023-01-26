@@ -340,3 +340,10 @@ def user_settings_page(request):
 	context = {'form':form, "form_password":form_password}
 	return render(request, 'meme/user_settings.html', context)
 
+
+def handle_404(request, exception):
+	from starter.settings import STATIC_ROOT
+	return render(request, 'meme/404.html')
+
+def handle_500(request):
+	return render(request, 'meme/404.html')

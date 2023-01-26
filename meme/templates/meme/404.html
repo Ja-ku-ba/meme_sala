@@ -1,1 +1,25 @@
 {% extends 'base.html' %}
+
+{% block title %}
+Strona nie istnieje
+{% endblock %}
+
+{% block content %}
+<div class="background-filler">
+    <br>
+    <div class="not-found">
+        <div class="post card bg-dark m-auto">
+            <h1 class="m-auto">404</h1>
+            <div class="card-body m-auto">
+                <h3 class="card-title m-auto">Strona nie istnieje</h3>
+            </div>
+            <div>
+                <a class="btn btn-colour interactions m-auto feed-link w-50" href="{% url 'home' %}">Wróć do strony głównej</a>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    <br>
+</div>
+{% endblock %}

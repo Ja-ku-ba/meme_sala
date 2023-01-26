@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,6 @@ SECRET_KEY = 'django-insecure-+kvrlfanf4f!sin2tt=aekx+sg7=518963#wptd3l3yve4f1t5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# "127.0.0.1", 
 ALLOWED_HOSTS = ["memesala-production.up.railway.app"]
 AUTH_USER_MODEL = "meme.Account"
 
@@ -152,10 +152,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = (
-    BASE_DIR / "static",
-)
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles-cdn'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
