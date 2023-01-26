@@ -28,8 +28,7 @@ def register(request):
 			form.save()
 			email = form.cleaned_data.get('email').lower()
 			raw_password = form.cleaned_data.get('password1')
-			username = form.cleaned_data.grt('username')
-			account = authenticate(email=email, password=raw_password, username=username)
+			account = authenticate(email=email, password=raw_password)
 			login(request, account)
 			
 			messages.success(request, f"Zalogowano pomyślnie, witaj {account.username}")
@@ -322,7 +321,6 @@ def user_settings_page(request):
 		pword = request.POST.get("password-form")
 		if pword is not None:
 			form_password = form_password(user = request.user, data = request.POST)
-			print(form_password.is_valid)
 			if form_password.is_valid():
 				form_password.save()
 				update_session_auth_hash(request, form_password.user)  # <-- keep the user loged after password change
