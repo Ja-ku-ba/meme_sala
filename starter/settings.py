@@ -23,8 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+kvrlfanf4f!sin2tt=aekx+sg7=518963#wptd3l3yve4f1t5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
+# "127.0.0.1", 
 ALLOWED_HOSTS = ["memesala-production.up.railway.app"]
 AUTH_USER_MODEL = "meme.Account"
 
@@ -76,6 +77,26 @@ WSGI_APPLICATION = 'starter.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
+# DATABASES = {
+
+#     'default': {
+
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+#         'NAME': 'meme_sala',
+
+#         'USER': 'postgres',
+
+#         'PASSWORD': 'Biedra',
+
+#         'HOST': 'localhost',
+
+#         'PORT': '5432',
+
+#     }
+
+# }
 
 DATABASES = {
 
