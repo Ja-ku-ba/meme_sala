@@ -345,3 +345,6 @@ def handle_404(request, exception):
 
 def handle_500(request):
 	return render(request, 'meme/404.html')
+
+def csrf_error(request, reason=""):
+	return render(request, 'meme/404.html')

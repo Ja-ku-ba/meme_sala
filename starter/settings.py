@@ -86,45 +86,45 @@ WSGI_APPLICATION = 'starter.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-
-    'default': {
-
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': 'meme_sala',
-
-        'USER': 'postgres',
-
-        'PASSWORD': 'Biedra',
-
-        'HOST': 'localhost',
-
-        'PORT': '5432',
-
-    }
-
-}
-
 # DATABASES = {
 
 #     'default': {
 
-#         'ENGINE': 'django.db.backends.postgresql',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-#         'NAME': 'railway',
+#         'NAME': 'meme_sala',
 
 #         'USER': 'postgres',
 
-#         'PASSWORD': '9vXrJ3gZTFcGySvtxhzG',
+#         'PASSWORD': 'Biedra',
 
-#         'HOST': 'containers-us-west-121.railway.app',
+#         'HOST': 'localhost',
 
-#         'PORT': '6743',
+#         'PORT': '5432',
 
 #     }
 
 # }
+
+DATABASES = {
+
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql',
+
+        'NAME': 'railway',
+
+        'USER': 'postgres',
+
+        'PASSWORD': '9vXrJ3gZTFcGySvtxhzG',
+
+        'HOST': 'containers-us-west-121.railway.app',
+
+        'PORT': '6743',
+
+    }
+
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -172,3 +172,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL=  'meme/login_register'
+
+CSRF_TRUSTED_ORIGINS = ["https://memesala-production.up.railway.app"]
+
+CSRF_FAILURE_VIEW = 'meme.views.csrf_error'

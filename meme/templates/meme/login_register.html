@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Zarejestruj
+    {% if status == 'Zaloguj' %}
+        Zaloguj
+    {% else %}
+        Zarejestruj
+    {% endif %}
 {% endblock %}
 
 
