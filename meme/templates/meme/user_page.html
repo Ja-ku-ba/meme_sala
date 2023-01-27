@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ {{user}} profil
+{% endblock %}
+
+{% block content %}
+    <div class="background-filler">
+        <br>
+        {% if request.user == user %}
+            <div class="w-50 m-auto user-page-options">
+                <a class="btn btn-dark" href="{% url 'user_interactions' %}" role="button">Interakce</a>
+                <a class="btn btn-dark" href="{% url 'user_notifications' %}" role="button">Powiadomienia</a>
+                <a class="btn btn-dark" href="{% url 'user_settings_page' %}" role="button">Zarządzaj</a>
+            </div>
+            <br>
+        {% endif %}
+        {% for post in posts %}
+                <div class="post card bg-dark m-auto">
+                    <div class="card-header text-center">
+                        <a class="feed-link" href="{% url 'user_page' post.owner.id %}">@{{post.owner}}</a><span class="feed-link"> | {{post.added | date:"G:i d.m"}}
+                    </div>
+                    <a class="text-decoration-none bg-dark feed-link" href="{% url 'post' post.id %}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{post.title}}</h5>
+                            <p class="card-text">{{post.body | truncatewords:50}}</p>
+                            {% load static %}<img class="image" src="{% static 'posts/' %}{{post.owner.id}}/{{post.id}}.png" onerror="this.style.display = 'none'">
+                        </div>
+                    </a>
+                </div>
+            <br>
+        {% endfor %}
+    </div>
+{% endblock %}

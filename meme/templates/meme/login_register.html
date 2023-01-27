@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if status == 'Zaloguj' %}
+        Zaloguj
+    {% else %}
+        Zarejestruj
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+<div class="background-filler">
+    <br>
+    <div class="post card bg-dark m-auto">
+        <div class="card-body pb-0">
+            {% if status == 'Zaloguj' %}
+                <div class="modal-borders-bottom">    
+                    <form method="POST" id="email-username" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden">
+                        <div class="form-group">
+                            <label for="exampleInputEmail11">Email:</label>
+                            <input id="exampleInputEmail11" name="email" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Hasło:</label>
+                            <input id="exampleInputEmail1" name="password" type="password" class="form-control">
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-colour interactions m-auto">Zaloguj</a>
+                        </div>
+                    </form>
+                    <br>
+                </div>
+                <div>
+                    <br>
+                    <label class="d-flex justify-content-center" for="register">Nie masz jeszcze konta?</label>
+                    <div>
+                        <button type="submit" class="btn btn-colour interactions m-auto">
+                            <a id="register" href="{% url 'register' %}" class="feed-link m-auto">Zarejestruj</a></a>
+                        </button>
+                    </div>
+                </div>
+                <br>
+            {% else %}
+                <div class="modal-borders-bottom">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="email-username-form">
+                        <div class="form-group">
+                            <label for="exampleInputEmail11">Nazwa użytkownika:</label>
+                            <input id="exampleInputEmail11" name="username" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail11">Email:</label>
+                            <input id="exampleInputEmail11" name="email" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Hasło:</label>
+                            <input id="exampleInputEmail1" name="password1" type="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Potwierdź hasło:</label>
+                            <input id="exampleInputEmail1" name="password2" type="password" class="form-control">
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-secondary interactions m-auto">Zarejestruj</a>
+                        </div>
+                    </form>
+                    <br>
+                </div>
+                <div>
+                    <br>
+                    <label class="d-flex justify-content-center" for="login">Masz już konto?</label>
+                    <div>
+                        <button type="submit" class="btn btn-colour interactions m-auto">
+                            <a id="login" href="{% url 'login' %}" class="feed-link m-auto">Zaloguj</a>
+                        </button>
+                    </div>
+                </div>
+                <br>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

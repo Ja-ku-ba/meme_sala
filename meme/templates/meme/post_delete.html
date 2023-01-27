@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Usuń post
+{% endblock %}
+
+{% block content %}
+    <h1>Usuń post: {{post.title}}</h1>
+    <p>Czynności nie będzie można cofnąć</p>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="submit" value="Usuń">
+    </form>
+{% endblock %}
