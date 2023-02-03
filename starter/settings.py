@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+kvrlfanf4f!sin2tt=aekx+sg7=518963#wptd3l3yve4f1t5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.1", "memesala-production.up.railway.app"]
 AUTH_USER_MODEL = "meme.Account"
@@ -93,21 +93,13 @@ WSGI_APPLICATION = 'starter.wsgi.application'
 DATABASES = {
 
     'default': {
-
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': 'meme_sala',
-
+        'NAME': 'postgres',
         'USER': 'postgres',
-
-        'PASSWORD': 'Biedra',
-
-        'HOST': 'localhost',
-
+        'PASSWORD': 'itslewiosanotleviosa123!@34321',
+        'HOST': 'db.opnfedvfzekqdlrbrzpj.supabase.co',
         'PORT': '5432',
-
     }
-
 }
 
 # DATABASES = {
@@ -164,7 +156,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_DIRS = [
+    BASE_DIR / 'static/',
+    ]
 
 STATIC_URL = '/static/'
 
@@ -181,7 +175,4 @@ CSRF_TRUSTED_ORIGINS = ["https://memesala-production.up.railway.app"]
 
 CSRF_FAILURE_VIEW = 'meme.views.csrf_error'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8000/", 
-    "https://memesala-production.up.railway.app/",
-]
+

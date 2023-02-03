@@ -56,7 +56,7 @@ class Account(AbstractBaseUser):
 
 
 def get_image_filepath(self, filename):
-    return f"static/posts/{self.owner.id}/{self.pk}.png"
+    return f"staticfiles/posts/{self.owner.id}/{self.pk}.png"
 
 class Post(models.Model):
     owner = models.ForeignKey(Account, on_delete=models.CASCADE)

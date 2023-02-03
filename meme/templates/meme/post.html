@@ -42,7 +42,7 @@ Najlepszy mem
         <div class="card-body pb-0">
             <h5 class="card-title">{{post.title}}</h5>
             <p class="card-text">{{post.body}}</p>
-            {% load static %}<img class="image" src="{% static 'posts/' %}{{post.owner.id}}/{{post.id}}.png" onerror="this.style.display = 'none'">
+            {% load static %}<img class="image" src="{% staticfiles '/posts/' %}{{post.owner.id}}/{{post.id}}.png">
             <div class="interactions">
                 <div class="interaction-field">
                     {% if request.user.is_authenticated %}
