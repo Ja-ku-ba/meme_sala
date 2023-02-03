@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-+kvrlfanf4f!sin2tt=aekx+sg7=518963#wptd3l3yve4f1t5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "memesala-production.up.railway.app"]
+ALLOWED_HOSTS = [".vercel.app"]
 AUTH_USER_MODEL = "meme.Account"
 
 # Application definition
