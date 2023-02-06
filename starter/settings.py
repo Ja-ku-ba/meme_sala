@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+kvrlfanf4f!sin2tt=aekx+sg7=518963#wptd3l3yve4f1t5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [".vercel.app"]
 AUTH_USER_MODEL = "meme.Account"
@@ -94,13 +94,27 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'itslewiosanotleviosa123!@34321',
-        'HOST': 'db.opnfedvfzekqdlrbrzpj.supabase.co',
+        'NAME': 'bgrr4ifo2xhfzkjtpgvs',
+        'USER': 'up8nnle0djxjupnpv8jq',
+        'PASSWORD': 'vqxNlmh7VVa20eoY2Ds98XSaC3Y8nh',
+        'HOST': 'bgrr4ifo2xhfzkjtpgvs-postgresql.services.clever-cloud.com',
         'PORT': '5432',
     }
 }
+
+
+
+# DATABASES = {
+
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': 'itslewiosanotleviosa123!@34321',
+#         'HOST': 'db.opnfedvfzekqdlrbrzpj.supabase.co',
+#         'PORT': '5432',
+#     }
+# }
 
 # DATABASES = {
 
@@ -170,8 +184,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL=  'meme/login_register'
-
-CSRF_TRUSTED_ORIGINS = ["https://memesala-production.up.railway.app"]
+ 
+CSRF_TRUSTED_ORIGINS = ["https://memesala.up.railway.app/"]
 
 CSRF_FAILURE_VIEW = 'meme.views.csrf_error'
 

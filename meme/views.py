@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Account, Post, Like, Dislike, Coment
 from .forms import UserForm, LoginForm, PostForm, UserSettingsForm
@@ -17,7 +18,7 @@ def home(request):
 	return render(request, 'meme/home.html', context)
 
 
-
+@csrf_exempt 
 def register(request):
 	form = UserForm
 	status = 'Zarejestruj'
@@ -48,7 +49,7 @@ def register(request):
 	return render(request, 'meme/login_register.html', context)
 
 
-
+@csrf_exempt 
 def login_user(request):
 	if request.user.is_authenticated:
 		return redirect('home')
@@ -79,14 +80,14 @@ def login_user(request):
 
 
 
-
+@csrf_exempt 
 def logout_user(request):
 	logout(request)
 	messages.info(request, "Wylogowano pomyślnie.")
 	return redirect('home')
 
 
-
+@csrf_exempt 
 def post_add(request):
 	form = PostForm
 	context = {'form':form}
@@ -112,7 +113,7 @@ def post_add(request):
 	return render(request, 'meme/post_add.html', context)
 
 
-
+@csrf_exempt 
 def post(request, pk):
 	# if user create random link
 	try:
@@ -150,7 +151,7 @@ def remove_img(path, img_name):
 	os.remove(path + '/' + img_name)
 	return True
 
-
+@csrf_exempt 
 def post_delete(request, pk):
 	try:
 		post_req = Post.objects.get(id=pk)
@@ -174,7 +175,7 @@ def post_delete(request, pk):
 	return render(request, 'meme/post_delete.html', context)
 
 
-
+@csrf_exempt 
 def like(request, pk):
 	# if user create random link with post id that does not exists
 	try:
@@ -210,7 +211,7 @@ def like(request, pk):
 	return redirect('post', post_req.id)
 
 
-
+@csrf_exempt 
 def dislike(request, pk):
 	# if user create random link with post id that does not exists
 	try:
@@ -245,7 +246,7 @@ def dislike(request, pk):
 	return redirect('post', post_req.id)
 
 
-
+@csrf_exempt 
 def coment_delete(request, pk):
 	# if user creates own link
 	try:
@@ -298,6 +299,7 @@ def user_notifications(request):
 	context = {'posts':posts, 'interactions':interactions}
 	return render(request, 'meme/user_notifications.html', context)
 
+@csrf_exempt 
 def user_settings_page(request):
 	form = UserSettingsForm
 	form_password = PasswordChangeForm
