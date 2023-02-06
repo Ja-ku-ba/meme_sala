@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-+kvrlfanf4f!sin2tt=aekx+sg7=518963#wptd3l3yve4f1t5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".vercel.app"]
+ALLOWED_HOSTS = []
 AUTH_USER_MODEL = "meme.Account"
 
 # Application definition
@@ -91,7 +91,6 @@ WSGI_APPLICATION = 'starter.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'bgrr4ifo2xhfzkjtpgvs',
@@ -105,7 +104,6 @@ DATABASES = {
 
 
 # DATABASES = {
-
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #         'NAME': 'postgres',
@@ -117,23 +115,14 @@ DATABASES = {
 # }
 
 # DATABASES = {
-
 #     'default': {
-
 #         'ENGINE': 'django.db.backends.postgresql',
-
 #         'NAME': 'railway',
-
 #         'USER': 'postgres',
-
 #         'PASSWORD': '9vXrJ3gZTFcGySvtxhzG',
-
 #         'HOST': 'containers-us-west-121.railway.app',
-
 #         'PORT': '6743',
-
 #     }
-
 # }
 
 # Password validation
@@ -185,7 +174,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL=  'meme/login_register'
  
-CSRF_TRUSTED_ORIGINS = ["https://memesala.up.railway.app/"]
+CSRF_TRUSTED_ORIGINS = ["memesala.pythonanywhere.com"]
 
 CSRF_FAILURE_VIEW = 'meme.views.csrf_error'
 
